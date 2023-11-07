@@ -74,7 +74,7 @@ fun Inicio() {
     var esError:Int by remember{ mutableStateOf(0)} //Cuenta los errores
     var esRespuesta:Int by remember{ mutableStateOf(0)} //Cuenta los aciertos
     if(mostrar) {
-        Dialogo({ },R.drawable.telefonodialogo,siError,pulsado)
+        Dialogo({ mostrar=false },R.drawable.telefonodialogo,siError,pulsado)
     }
     var indice by remember{ mutableStateOf(0) }
 
@@ -84,10 +84,11 @@ fun Inicio() {
         esError=0
     }
     if(mostrarEs){
-        DialogStatics(onDismissRequest = { /*TODO*/ },
+        DialogStatics(onDismissRequest = { mostrarEs = false },
             painter = R.drawable.telefonodialogo,
             texto = "Tus estadisticas son:\n"+
-                    "Aciertos: ${esRespuesta}")
+                    "Aciertos: ${esRespuesta}\n"+
+                    "Fallos: ${esError}")
     }
 
   Column(
@@ -96,20 +97,16 @@ fun Inicio() {
           .fillMaxWidth(1f)
           .fillMaxHeight(1f)) {
 
-    Box(){
-        Text(text = Preguntas.get(indice).Titulo+" número "+(indice+1),
-            modifier = Modifier
-                .align(Alignment.Center)
-        )
+      Text(text = Preguntas.get(indice).Titulo+" número "+(indice+1),
+            modifier = Modifier.align(CenterHorizontally).padding(vertical = 10.dp)
+      )
 
-        Button(onClick = {
-            mostrarEs=true
-        },colors = ButtonDefaults.buttonColors(Color.Gray)) {
+      Button(onClick = {
+            mostrarEs=true }
+          ,colors = ButtonDefaults.buttonColors(Color.Gray),
+            modifier = Modifier.fillMaxWidth(1f)) {
             Text(text = "Estadisticas")
-        }
-    }
-
-      
+      }
     Image(painter = painterResource(id = Preguntas.get(indice).Imagen), contentDescription = "Es una imagen de ejemplo",
         modifier = Modifier
             .size(500.dp)
@@ -134,7 +131,7 @@ fun Inicio() {
           }
       }
 
-      Spacer(modifier = Modifier.height(32.dp))
+      Spacer(modifier = Modifier.height(10.dp))
       Button(onClick = {
           if(!pulsa){
               siError="Tienes que responder con true o false"

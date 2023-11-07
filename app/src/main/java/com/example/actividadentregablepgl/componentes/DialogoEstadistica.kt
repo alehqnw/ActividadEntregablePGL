@@ -34,7 +34,7 @@ import com.example.actividadentregablepgl.R
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(500.dp)
+                    .height(300.dp)
                     .padding(16.dp),
                 shape = RoundedCornerShape(16.dp),
             ){
@@ -51,7 +51,7 @@ import com.example.actividadentregablepgl.R
                     )
                     Text(
                         text = texto,
-                        modifier = Modifier.padding(16.dp).fillMaxSize(),
+                        modifier = Modifier.padding(16.dp),
                         textAlign = TextAlign.Center
                     )
                     TextButton(
