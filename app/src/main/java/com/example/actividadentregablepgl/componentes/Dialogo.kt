@@ -53,7 +53,9 @@ fun Dialogo(
 
                 )
                 Text(
+
                     text = texto,
+                    color= if(!Error){Color.Red}else{Color.Green},
                     modifier = Modifier.padding(16.dp),
                     textAlign = TextAlign.Center
                 )

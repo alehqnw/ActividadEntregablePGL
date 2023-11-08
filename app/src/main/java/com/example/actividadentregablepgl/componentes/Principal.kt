@@ -2,17 +2,18 @@ package com.example.actividadentregablepgl.componentes
 
 import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 
 import androidx.compose.material3.Button
 
@@ -63,7 +64,18 @@ fun Inicio() {
         R.drawable.unity,
         "Si la ha liado, hay que informarse más",
         "Bien, estás al corriente del asunto"))
-
+    Preguntas.add(DatosJuego("Pregunta",
+        "¿Illojuan es LMDSHOW el amigo del novio de Massi?",
+        true,
+        R.drawable.illojuan,
+        "No estás nada informado 🤡🤡🤡",
+        "Correcto, de hecho illojuan es LMDSHOW y el novio de Massi"))
+    Preguntas.add(DatosJuego("Pregunta",
+        "¿ULTRAKILL es el mejor BOOMERSHOOTER?",
+        true,
+        R.drawable.ultrakill,
+        "Me parece que no estás preparado para esta conversacion 🥱🥱",
+        "SI, EL MEJOR BOOMERSHOOTER ES ULTRAKILL deberían darte un premio"))
 
     //Instanciar las variables
     var pulsa:Boolean= false //Ha pulsado true o false
@@ -73,16 +85,11 @@ fun Inicio() {
     var siError by remember{ mutableStateOf("")} // Muestra mensaje de error
     var esError:Int by remember{ mutableStateOf(0)} //Cuenta los errores
     var esRespuesta:Int by remember{ mutableStateOf(0)} //Cuenta los aciertos
+    var indice by remember{ mutableStateOf(Randomizer(Preguntas.size)) } //INDICE
+    var previewindice:ArrayList<Int> = ArrayList()
+    var curr:Int by remember{ mutableStateOf(0)}
     if(mostrar) {
         Dialogo({ mostrar=false },R.drawable.telefonodialogo,siError,pulsado)
-    }
-    var indice by remember{ mutableStateOf(0) }
-
-    if(Preguntas.size==indice){
-        indice=0
-        mostrarEs = true
-        esRespuesta=0
-        esError=0
     }
     if(mostrarEs){
         DialogStatics(onDismissRequest = { mostrarEs = false },
@@ -92,6 +99,10 @@ fun Inicio() {
                     "Fallos: ${esError}")
     }
 
+    if(Preguntas.size==indice){
+        indice= Randomizer(Preguntas.size)
+    }
+
   Column(
       Modifier
           .fillMaxSize(1f)
@@ -99,7 +110,9 @@ fun Inicio() {
           .fillMaxHeight(1f)) {
 
       Text(text = Preguntas.get(indice).Titulo+" número "+(indice+1),
-            modifier = Modifier.align(CenterHorizontally).padding(vertical = 10.dp)
+            modifier = Modifier
+                .align(CenterHorizontally)
+                .padding(vertical = 10.dp)
       )
 
       Button(onClick = {
@@ -110,40 +123,55 @@ fun Inicio() {
       }
     Image(painter = painterResource(id = Preguntas.get(indice).Imagen), contentDescription = "Es una imagen de ejemplo",
         modifier = Modifier
-            .size(500.dp)
+            .size(400.dp)
             .fillMaxWidth(1f))
     Text(text = Preguntas.get(indice).Contenido,
         Modifier
             .align(CenterHorizontally))
-      Row(Modifier.padding(horizontal = 110.dp, vertical = 50.dp)){
+
+      Row( horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(vertical = 50.dp).fillMaxWidth()){
           Button(onClick = { pulsado = true
               pulsa = true;
 
-          }, colors = ButtonDefaults.buttonColors(containerColor= Color.Green)) {
+          }, colors = ButtonDefaults.buttonColors(containerColor= Color.Green),
+              modifier = Modifier.weight(1f)
+             ) {
               Text(text = "true")
 
           }
           Button(onClick = { pulsado = false
               pulsa = true;
               System.out.println("Se ha pulsado")
-          }, colors = ButtonDefaults.buttonColors(containerColor = Color.Red)) {
+          }, colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+              modifier = Modifier.weight(1f)) {
               Text(text= "false")
 
           }
       }
 
-      Spacer(modifier = Modifier.height(10.dp))
-      Button(onClick = {
-          if(!pulsa){
-              siError="Tienes que responder con true o false"
-              mostrar = true
+      Row(horizontalArrangement = Arrangement.SpaceBetween,
+          modifier = Modifier.fillMaxSize()) {
+          Button(onClick = { indice = (curr) },
+              modifier = Modifier.weight(1f)){
+              Text(text = "PREV")
+              Icon(painter = painterResource(
+                  id = R.drawable.baseline_arrow_back_ios_new_24),
+                  contentDescription ="FlechaAlaDerecha" )
 
-          }else{
+          }
+          Button(onClick = {
+              if(!pulsa){
+                  siError="Tienes que responder con true o false"
+                  mostrar = true
+
+              }else{
                   if(Preguntas.get(indice).acierto.equals(pulsado)){
                       siError=Preguntas.get(indice).Respuesta
                       pulsado=true
                       mostrar = true
-                      indice++
+                      indice = Randomizer(Preguntas.size)
+                      previewindice.add(indice)
+                      curr++
                       esRespuesta++
                   }
                   else{
@@ -151,29 +179,35 @@ fun Inicio() {
                       mostrar = true
                       siError=Preguntas.get(indice).Error
                       esError++
-                      indice++
+                      indice = Randomizer(Preguntas.size)
+                      previewindice.add(indice)
                   }
 
 
+              }
+          },modifier = Modifier.weight(1f)
+              ) {
+              Text(text = "Next")
+              Icon(painter = painterResource(
+                  id = R.drawable.baseline_keyboard_arrow_right_24),
+                  contentDescription ="FlechaAlaDerecha" )
           }
-      },Modifier.fillMaxWidth(1f)) {
-          Text(text = "Next")
-          Icon(painter = painterResource(
-                id = R.drawable.baseline_keyboard_arrow_right_24),
-                contentDescription ="FlechaAlaDerecha" )
+
       }
+
   }
 }
 
 
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showSystemUi = true, showBackground = true, device = "id:pixel_4_xl")
 @Composable
 fun PreviewInicio(){
     Inicio()
 }
-fun Randomizer():Int{
+
+fun Randomizer(max:Int):Int{
     val secureRandom = SecureRandom()
-    val entero = secureRandom.nextInt(3)
+    val entero = secureRandom.nextInt(max)
     return entero
 }
