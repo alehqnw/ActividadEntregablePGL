@@ -80,12 +80,13 @@ fun Inicio() {
 
     if(Preguntas.size==indice){
         indice=0
+        mostrarEs = true
         esRespuesta=0
         esError=0
     }
     if(mostrarEs){
         DialogStatics(onDismissRequest = { mostrarEs = false },
-            painter = R.drawable.telefonodialogo,
+            painter = R.drawable.telefonoestadistica,
             texto = "Tus estadisticas son:\n"+
                     "Aciertos: ${esRespuesta}\n"+
                     "Fallos: ${esError}")
