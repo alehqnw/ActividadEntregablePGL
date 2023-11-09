@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -113,28 +114,39 @@ fun Inicio() {
             modifier = Modifier
                 .align(CenterHorizontally)
                 .padding(vertical = 10.dp)
+                .weight(0.5f)
+                .fillMaxWidth()
       )
 
       Button(onClick = {
             mostrarEs=true }
           ,colors = ButtonDefaults.buttonColors(Color.Gray),
-            modifier = Modifier.fillMaxWidth(1f)) {
+            modifier = Modifier
+                .weight(0.5f)
+                .fillMaxWidth()) {
             Text(text = "Estadisticas")
       }
-    Image(painter = painterResource(id = Preguntas.get(indice).Imagen), contentDescription = "Es una imagen de ejemplo",
-        modifier = Modifier
-            .size(400.dp)
-            .fillMaxWidth(1f))
+      //IMAGEN
+      Box(modifier = Modifier.weight(5f)){
+          Image(painter = painterResource(id = Preguntas.get(indice).Imagen), contentDescription = "Es una imagen de ejemplo",
+              modifier = Modifier
+                  .size(400.dp)
+                  .fillMaxSize())
+      }
+
     Text(text = Preguntas.get(indice).Contenido,
         Modifier
-            .align(CenterHorizontally))
+            .align(CenterHorizontally)
+            .weight(0.5f))
 
-      Row( horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(vertical = 50.dp).fillMaxWidth()){
+      //BOTON TRUE O FALSE
+      Row( horizontalArrangement = Arrangement.Center, modifier = Modifier
+          .weight(2f)){
+          var verde = ButtonDefaults.buttonColors(containerColor = Color.Green)
           Button(onClick = { pulsado = true
               pulsa = true;
-
-          }, colors = ButtonDefaults.buttonColors(containerColor= Color.Green),
-              modifier = Modifier.weight(1f)
+          }, colors = ButtonDefaults.buttonColors(Color.Green),
+              modifier = Modifier.weight(1f),
              ) {
               Text(text = "true")
 
@@ -148,9 +160,9 @@ fun Inicio() {
 
           }
       }
-
+      //BOTON NEXT Y PREV
       Row(horizontalArrangement = Arrangement.SpaceBetween,
-          modifier = Modifier.fillMaxSize()) {
+          modifier = Modifier.weight(2f).align(Alignment.End)) {
           Button(onClick = { indice = (curr) },
               modifier = Modifier.weight(1f)){
               Text(text = "PREV")
@@ -159,6 +171,7 @@ fun Inicio() {
                   contentDescription ="FlechaAlaDerecha" )
 
           }
+
           Button(onClick = {
               if(!pulsa){
                   siError="Tienes que responder con true o false"
