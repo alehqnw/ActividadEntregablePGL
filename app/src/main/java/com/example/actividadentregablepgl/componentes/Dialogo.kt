@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.actividadentregablepgl.R
 
@@ -57,6 +58,7 @@ fun Dialogo(
                     text = texto,
                     color= if(!Error){Color.Red}else{Color.Green},
                     modifier = Modifier.padding(16.dp),
+                    fontSize = 16.sp,
                     textAlign = TextAlign.Center
                 )
                 TextButton(

@@ -1,5 +1,6 @@
 package com.example.actividadentregablepgl.componentes
 
+import android.widget.TextView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.actividadentregablepgl.R
 
@@ -51,7 +53,7 @@ import com.example.actividadentregablepgl.R
                     )
                     Text(
                         text = texto,
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(16.dp), fontSize = 16.sp,
                         textAlign = TextAlign.Center
                     )
                     TextButton(

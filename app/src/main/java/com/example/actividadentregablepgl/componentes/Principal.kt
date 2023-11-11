@@ -2,6 +2,7 @@ package com.example.actividadentregablepgl.componentes
 
 import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 
@@ -89,6 +90,7 @@ fun Inicio() {
     var indice by remember{ mutableStateOf(Randomizer(Preguntas.size)) } //INDICE
     var previewindice:ArrayList<Int> = ArrayList()
     var curr:Int by remember{ mutableStateOf(0)}
+    var tutorial:Boolean by remember{mutableStateOf(true)}
     if(mostrar) {
         Dialogo({ mostrar=false },R.drawable.telefonodialogo,siError,pulsado)
     }
@@ -103,12 +105,18 @@ fun Inicio() {
     if(Preguntas.size==indice){
         indice= Randomizer(Preguntas.size)
     }
+    if(tutorial){
+        DialogStatics(onDismissRequest = { tutorial = false },
+            painter = R.drawable.baseline_accessibility_24,
+            texto = "Pulsa true o false y una vez estés decidido\nPulsa next para pasar a la siguiente pregunta\n y saber si has acertado o fallado")
+    }
 
   Column(
       Modifier
           .fillMaxSize(1f)
           .fillMaxWidth(1f)
-          .fillMaxHeight(1f)) {
+          .fillMaxHeight(1f)
+          .background(Color.Black)) {
 
       Text(text = Preguntas.get(indice).Titulo+" número "+(indice+1),
             modifier = Modifier
@@ -142,7 +150,6 @@ fun Inicio() {
       //BOTON TRUE O FALSE
       Row( horizontalArrangement = Arrangement.Center, modifier = Modifier
           .weight(2f)){
-          var verde = ButtonDefaults.buttonColors(containerColor = Color.Green)
           Button(onClick = { pulsado = true
               pulsa = true;
           }, colors = ButtonDefaults.buttonColors(Color.Green),
@@ -162,7 +169,7 @@ fun Inicio() {
       }
       //BOTON NEXT Y PREV
       Row(horizontalArrangement = Arrangement.SpaceBetween,
-          modifier = Modifier.weight(2f).align(Alignment.End)) {
+          modifier = Modifier.weight(2f)) {
           Button(onClick = { indice = (curr) },
               modifier = Modifier.weight(1f)){
               Text(text = "PREV")
@@ -198,7 +205,7 @@ fun Inicio() {
 
 
               }
-          },modifier = Modifier.weight(1f)
+          },modifier = Modifier.weight(1f),colors = ButtonDefaults.buttonColors(R.color.malva)
               ) {
               Text(text = "Next")
               Icon(painter = painterResource(
