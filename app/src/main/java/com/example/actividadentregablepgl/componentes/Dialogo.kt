@@ -1,6 +1,7 @@
 package com.example.actividadentregablepgl.componentes
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -40,7 +42,7 @@ fun Dialogo(
                 .fillMaxWidth()
                 .height(210.dp)
                 .padding(16.dp),
-            shape = RoundedCornerShape(16.dp)
+            shape = RoundedCornerShape(16.dp),colors = CardDefaults.cardColors(Color.Black)
         ){
             Column(
                 modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,

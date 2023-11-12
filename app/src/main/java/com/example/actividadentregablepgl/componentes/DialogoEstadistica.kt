@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -26,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.actividadentregablepgl.R
 
-    @Composable
+@Composable
     fun DialogStatics(
         onDismissRequest: () -> Unit,
         painter:Int,
@@ -38,7 +40,7 @@ import com.example.actividadentregablepgl.R
                     .fillMaxWidth()
                     .height(300.dp)
                     .padding(16.dp),
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(16.dp),colors = CardDefaults.cardColors(Color.Black)
             ){
                 Column(
                     modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
@@ -54,7 +56,7 @@ import com.example.actividadentregablepgl.R
                     Text(
                         text = texto,
                         modifier = Modifier.padding(16.dp), fontSize = 16.sp,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,color = Color.White
                     )
                     TextButton(
                         onClick = { onDismissRequest() },

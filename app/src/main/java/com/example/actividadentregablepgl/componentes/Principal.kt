@@ -123,7 +123,7 @@ fun Inicio() {
                 .align(CenterHorizontally)
                 .padding(vertical = 10.dp)
                 .weight(0.5f)
-                .fillMaxWidth()
+                .fillMaxWidth(),color = Color.White
       )
 
       Button(onClick = {
@@ -145,7 +145,7 @@ fun Inicio() {
     Text(text = Preguntas.get(indice).Contenido,
         Modifier
             .align(CenterHorizontally)
-            .weight(0.5f))
+            .weight(0.5f),color = Color.White)
 
       //BOTON TRUE O FALSE
       Row( horizontalArrangement = Arrangement.Center, modifier = Modifier
@@ -171,14 +171,14 @@ fun Inicio() {
       Row(horizontalArrangement = Arrangement.SpaceBetween,
           modifier = Modifier.weight(2f)) {
           Button(onClick = { indice = (curr) },
-              modifier = Modifier.weight(1f)){
+              modifier = Modifier.weight(1f),
+              colors = ButtonDefaults.buttonColors(Color.Magenta)){
               Text(text = "PREV")
               Icon(painter = painterResource(
                   id = R.drawable.baseline_arrow_back_ios_new_24),
                   contentDescription ="FlechaAlaDerecha" )
 
           }
-
           Button(onClick = {
               if(!pulsa){
                   siError="Tienes que responder con true o false"
@@ -205,7 +205,7 @@ fun Inicio() {
 
 
               }
-          },modifier = Modifier.weight(1f),colors = ButtonDefaults.buttonColors(R.color.malva)
+          },modifier = Modifier.weight(1f),colors = ButtonDefaults.buttonColors(Color.Magenta)
               ) {
               Text(text = "Next")
               Icon(painter = painterResource(
